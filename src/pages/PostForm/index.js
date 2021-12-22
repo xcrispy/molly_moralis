@@ -91,7 +91,7 @@ export default function PostForm() {
         <>
             <Header/>
             <main className={styles.main}>
-                <Card width="medium" pad="large" background="dark-1">
+                <Card width="large" pad="large" background="dark-1">
                     
 
 

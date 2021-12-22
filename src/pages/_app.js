@@ -3,8 +3,7 @@ import { grommet, Grommet } from 'grommet';
 import 'degen/styles'
 import { ChakraProvider } from '@chakra-ui/react'
 import {MoralisProvider} from "react-moralis"
-
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }){ 
   return (
     <MoralisProvider 
       appId={process.env.NEXT_PUBLIC_MORALIS_APP_ID}
