@@ -15,6 +15,7 @@
     "babel-plugin-styled-components": "^2.0.2",
     "degen": "^0.0.43",
     "dotenv": "^10.0.0",
+    "ethers": "^5.5.2",
     "formik": "^2.2.9",
     "framer-motion": "^4",
     "fs": "^0.0.1-security",

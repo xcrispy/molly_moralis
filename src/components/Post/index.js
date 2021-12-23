@@ -1,6 +1,7 @@
 import {Card, Video, Button, CardFooter} from "grommet"
 import { Favorite, Play, Chat } from 'grommet-icons';
 
+
 import { Center, Text, VStack, HStack, Flex, Spacer} from "@chakra-ui/react"
 
 export default function Post () {
@@ -12,7 +13,7 @@ export default function Post () {
                     </Center>
 
                     <Video controls="over" fit="cover">
-                    <source key="video" src="/public/twitchclip1.mp4" type="video/mp4" />
+                    <source key="video" src="../../../public/twitchclip1.mp4" type="video/mp4" />
                     </Video>
                     <CardFooter pad={{horizontal: "small"}} background="light-2">
                     <Flex>
