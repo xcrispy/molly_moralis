@@ -45,8 +45,6 @@ export default function PostForm() {
     console.log("saved json to ipfs");
   };
 
-  const saveFile = async () => {};
-
   const { error, isUploading, moralisFile, saveFile } = useMoralisFile();
 
   const formik = useFormik({
@@ -108,6 +106,7 @@ export default function PostForm() {
                 <label htmlFor="title">Title</label>
                 <TextInput
                   id="title"
+                  required
                   type="text"
                   {...formik.getFieldProps("title")}
                 />
@@ -119,6 +118,7 @@ export default function PostForm() {
                 <label htmlFor="description">Description</label>
                 <TextArea
                   id="description"
+                  required
                   type="text"
                   {...formik.getFieldProps("description")}
                 />
@@ -129,6 +129,7 @@ export default function PostForm() {
                 <label htmlFor="text">Video Clip</label>
                 <TextInput
                   id="file"
+                  required
                   name="file"
                   type="file"
                   onChange={(e) =>
@@ -142,6 +143,7 @@ export default function PostForm() {
                 <label htmlFor="editions">Editions</label>
                 <TextInput
                   id="editions"
+                  required
                   type="int"
                   {...formik.getFieldProps("editions")}
                 />
@@ -152,6 +154,7 @@ export default function PostForm() {
                 <label htmlFor="price">Price</label>
                 <TextInput
                   id="price"
+                  required
                   type="text"
                   {...formik.getFieldProps("price")}
                 />
