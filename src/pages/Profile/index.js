@@ -86,6 +86,8 @@ export default function Profile() {
         ) : null}
         <br />
         {isAuthenticated ? user.get("ethAddress") : null}
+
+        <div></div>
       </main>
 
       <Footer />
