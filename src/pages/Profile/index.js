@@ -2,6 +2,10 @@ import { Button, Heading, InputGroup } from "@chakra-ui/react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import styles from "../../styles/Home.module.css";
+import React from "react";
+import Paper from "@material-ui/core/Paper";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import { Card, TextInput, TextArea, FileInput } from "grommet";
 import { Box } from "@chakra-ui/react";
@@ -15,6 +19,7 @@ const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
 export default function Profile() {
   const [fileUrl, setFileUrl] = useState(null);
+  const [value, setValue] = React.useState(2);
   var file;
   async function onChange(e) {
     file = e.target.files[0];
@@ -55,9 +60,9 @@ export default function Profile() {
   return (
     <>
       <Header />
+      <Heading className={styles.head}>Profile</Heading>
       <main className={styles.main}>
-        <Heading>Profile</Heading>
-        {showFile ? <ShowFile /> : null}
+        {showFile && isAuthenticated ? <ShowFile /> : null}
         <br />
         {isAuthenticated ? (
           <>
@@ -70,6 +75,7 @@ export default function Profile() {
                     <input
                       required
                       type="file"
+                      type="image/png"
                       name="NFT"
                       className="my-2"
                       onChange={onChange}
@@ -85,11 +91,52 @@ export default function Profile() {
           </>
         ) : null}
         <br />
-        {isAuthenticated ? user.get("ethAddress") : null}
-
-        <div></div>
+        {isAuthenticated ? (
+          <>
+            {user.get("ethAddress")}
+            <br />
+            <div className="">
+              <div>
+                <Paper square>
+                  <Tabs
+                    value={value}
+                    textColor="primary"
+                    indicatorColor="primary"
+                    onChange={(event, newValue) => {
+                      setValue(newValue);
+                    }}
+                  >
+                    <Tab label="Videos Minted" />
+                    <Tab label="Videos Owned" />
+                    <Tab label="Videos Sold" />
+                    <Tab label="All Videos" />
+                  </Tabs>
+                  {value === 0 ? (
+                    <>
+                      <div>probably videos i have minted</div>
+                    </>
+                  ) : null}
+                  {value === 1 ? (
+                    <>
+                      <div>probably videos i own</div>
+                    </>
+                  ) : null}
+                  {value === 2 ? (
+                    <>
+                      <div>probably videos i have sold</div>
+                    </>
+                  ) : null}
+                  {value === 3 ? (
+                    <>
+                      <div>probably everthing i do here</div>
+                    </>
+                  ) : null}
+                </Paper>
+              </div>
+            </div>
+          </>
+        ) : null}
       </main>
-
       <Footer />
     </>
   );
