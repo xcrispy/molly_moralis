@@ -19,7 +19,7 @@ const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
 export default function Profile() {
   const [fileUrl, setFileUrl] = useState(null);
-  const [value, setValue] = React.useState(2);
+  const [value, setValue] = React.useState(0);
   var file;
   async function onChange(e) {
     file = e.target.files[0];
@@ -95,6 +95,7 @@ export default function Profile() {
           <>
             {user.get("ethAddress")}
             <br />
+            <br />
             <div className="">
               <div>
                 <Paper square>
@@ -111,6 +112,7 @@ export default function Profile() {
                     <Tab label="Videos Sold" />
                     <Tab label="All Videos" />
                   </Tabs>
+                  <br />
                   {value === 0 ? (
                     <>
                       <div>probably videos i have minted</div>
