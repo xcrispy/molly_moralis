@@ -75,7 +75,6 @@ export default function Profile() {
                     <input
                       required
                       type="file"
-                      type="image/png"
                       name="NFT"
                       className="my-2"
                       onChange={onChange}
