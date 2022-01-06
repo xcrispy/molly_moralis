@@ -1,9 +1,9 @@
 import { Card, Video, Button, CardFooter } from "grommet";
-import { Favorite, Play, Chat, Like } from "grommet-icons";
+//import { Favorite, Play, Chat, Like } from "grommet-icons";
 import { useState } from "react";
 import ReactPlayer from "react-player";
 import { Center, Text, VStack, HStack, Flex, Spacer } from "@chakra-ui/react";
-import { Value } from "grommet-controls";
+//import { Value } from "grommet-controls";
 
 export default function Post() {
   const [like, setLike] = useState(5);
@@ -27,12 +27,12 @@ export default function Post() {
             //../../../public/twitchclip1.mp4
           />
   </Video> */}
-        <ReactPlayer
+        {/* <ReactPlayer
           width="700px"
           height="430px"
           controls
           url="https://www.youtube.com/watch?v=F2EfTe7YOT4"
-        />
+        /> */}
 
         <CardFooter pad={{ horizontal: "small" }} background="light-2">
           <Flex>
@@ -40,7 +40,7 @@ export default function Post() {
               <Spacer />
               <HStack>
                 <HStack style={{ marginLeft: ".7rem" }}>
-                  <Play size="medium" color="black" />
+                  {/* <Play size="medium" color="black" /> */}
                   <Text>1023324</Text>
                   <br />
                 </HStack>
@@ -48,14 +48,14 @@ export default function Post() {
 
                 <Button style={{ marginLeft: "2rem" }} onClick={Like}>
                   <HStack>
-                    <Favorite size="medium" color="red" />
+                    {/* <Favorite size="medium" color="red" /> */}
                     <h2>{like}</h2>
                   </HStack>
                 </Button>
 
                 <Button style={{ marginLeft: "2rem" }}>
                   <HStack>
-                    <Chat size="medium" color="blue" />
+                    {/* <Chat size="medium" color="blue" /> */}
                     <Text>125</Text>
                   </HStack>
                 </Button>
