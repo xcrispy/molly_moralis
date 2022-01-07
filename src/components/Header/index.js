@@ -1,5 +1,7 @@
 import { useMoralis } from "react-moralis";
 import { useState } from "react";
+import { AiOutlineCopy } from "react-icons/ai";
+import { FaBeer } from "react-icons/fa";
 import {
   Button,
   Badge,
@@ -12,7 +14,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { DropButton } from "grommet";
+import { DropButton, Menu } from "grommet";
 
 import { truncateAddress } from "../../utils/shortAddy";
 
@@ -35,18 +37,121 @@ export default function Header() {
               ColorPixels
             </Text>
             <Spacer />
-            <HStack>
-              <Link href="/">Explore</Link>
-              <Link href="/PostForm">Mint</Link>
-              <Link href="/Profile">Profile</Link>
+            <HStack style={{ position: "relative", left: "10px" }}>
+              <Link href="/">
+                <DropButton
+                  style={{ position: "relative", left: "20px" }}
+                  label="Explore"
+                ></DropButton>
+              </Link>
+              <Link href="/PostForm">
+                <DropButton
+                  style={{ position: "relative", left: "50px" }}
+                  label="Mint"
+                ></DropButton>
+              </Link>
+              <Link href="/Profile">
+                <DropButton
+                  style={{ position: "relative", left: "90px" }}
+                  label="Profile"
+                ></DropButton>
+              </Link>
             </HStack>
             <Spacer />
             <HStack p="4">
+              <Menu
+                style={{ position: "relative", right: "20px" }}
+                label={
+                  <>
+                    {" "}
+                    <span>{truncateAddress(user.get("ethAddress"))}</span>{" "}
+                  </>
+                }
+                items={[
+                  {
+                    label: (
+                      <Button
+                        width={170}
+                        border={false}
+                        colorScheme="blue"
+                        rounded={false}
+                        onClick={() => {
+                          navigator.clipboard.writeText(user.get("ethAddress"));
+                        }}
+                      >
+                        {
+                          <>
+                            <span>
+                              {truncateAddress(user.get("ethAddress"))}
+                            </span>{" "}
+                            <span>&nbsp;&nbsp;&nbsp;</span>
+                          </>
+                        }
+
+                        <AiOutlineCopy />
+                      </Button>
+                    ),
+                    onClick: () => {},
+                  },
+                  {
+                    label: (
+                      <Button
+                        width={170}
+                        border={false}
+                        style={{ marginTop: "10px" }}
+                        rounded={false}
+                        onClick={() => {
+                          window.open(
+                            `https://mumbai.polygonscan.com/address/${user.get(
+                              "ethAddress"
+                            )}`,
+                            "_blank"
+                          );
+                        }}
+                      >
+                        {" "}
+                        View on PolygonScan
+                      </Button>
+                    ),
+                    onClick: () => {},
+                  },
+                  {
+                    label: (
+                      <>
+                        {" "}
+                        <Button width={170} border={false} rounded={false}>
+                          {" "}
+                          Polygon balance
+                        </Button>
+                        <br />
+                      </>
+                    ),
+                    onClick: () => {},
+                  },
+                  {
+                    label: (
+                      <>
+                        <Button
+                          p="4"
+                          style={{ position: "relative" }}
+                          width={170}
+                          border={false}
+                          rounded={false}
+                          colorScheme="blue"
+                          onClick={logout}
+                        >
+                          {" "}
+                          Logout{" "}
+                        </Button>
+                      </>
+                    ),
+                    onClick: () => {},
+                  },
+                ]}
+              />
               {/* <h2>Welcome {user.get("username")}</h2> */}
               {/* <h1>Logged in as:</h1> */}
-              <Badge colorScheme="green">
-                {truncateAddress(user.get("ethAddress"))}
-              </Badge>
+
               <Button colorScheme="blue" onClick={logout}>
                 {" "}
                 Logout{" "}
@@ -69,7 +174,8 @@ export default function Header() {
                 <>
                   <Button
                     p="4"
-                    mt="4"
+                    mt="2"
+                    rounded={false}
                     colorScheme="blue"
                     onClick={() => {
                       authenticate({ provider: "metamask" });
@@ -79,7 +185,8 @@ export default function Header() {
                   </Button>
                   <Button
                     p="4"
-                    mt="4"
+                    mt="2"
+                    rounded={false}
                     colorScheme="blue"
                     onClick={() => {
                       authenticate({ provider: "walletconnect", chainId: 137 });
