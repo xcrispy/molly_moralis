@@ -11,6 +11,7 @@ export default function Post() {
   const Like = () => {
     console.log("you liked a video");
   };
+
   return (
     <>
       <Card height="450px" width="700px" background="dark-1">

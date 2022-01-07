@@ -2,18 +2,27 @@ import { Heading, Center, useFormControlProps } from "@chakra-ui/react";
 import Feed from "../../components/Feed";
 import Header from "../../components/Header";
 import ReactPlayer from "react-player";
+import { useRouter } from "next/router";
 import { Player } from "video-react";
 import Footer from "../../components/Footer";
 import styles from "../../styles/Home.module.css";
 import { Card, TextInput, TextArea, FileInput } from "grommet";
 import { create as ipfsHttpClient } from "ipfs-http-client";
+import web3 from "web3";
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import { ethers } from "ethers";
 import { VStack, Spacer, HStack, Button, Input, Stack } from "@chakra-ui/react";
 import { useMoralisFile, useMoralis } from "react-moralis";
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
+
+// Extra test
+import { nftaddress, nftmarketaddress } from "../config";
+import NFT from "../../../artifacts/contracts/NFT.sol/NFT.json";
+import Market from "../../../artifacts/contracts/NFTMarket.sol/NFTMarket.json";
+// Extra test
+
 export default function PostForm() {
   //const [title, setTitle] = useState('')
   const Moralis = require("moralis");
@@ -23,7 +32,7 @@ export default function PostForm() {
   const [editions, setEditions] = useState("");
   const [price, setPrice] = useState("");
   const [submit, setSubmit] = useState(false);
-
+  const router = useRouter();
   const { user } = useMoralis();
 
   const [highlight, setHighlight] = useState({
@@ -118,6 +127,56 @@ export default function PostForm() {
     },
   });
 
+  // Test code
+  async function createSale(url) {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+
+    let contract = new ethers.Contract(nftaddress, NFT.abi, signer);
+    let transaction = await contract.createToken(url);
+    let tx = await transaction.wait();
+    let event = tx.events[0];
+    let value = event.args[2];
+    let tokenId = value.toNumber();
+    const price = web3.utils.toWei(String(highlight.price), "ether");
+
+    const listingPrice = web3.utils.toWei("0.01", "ether");
+
+    contract = new ethers.Contract(nftmarketaddress, Market.abi, signer);
+
+    transaction = await contract.createMarketItem(nftaddress, tokenId, price, {
+      value: listingPrice,
+    });
+
+    await transaction.wait();
+    router.push("/");
+  }
+
+  async function createMarket() {
+    /*if (
+      !highlight.title ||
+      highlight.description ||
+      !highlight.price ||
+      !fileUrl
+    )*/
+    console.log(highlight.title + " was created");
+    // first, upload to IPFS
+    const data = JSON.stringify({
+      name: highlight.title,
+      description: highlight.description,
+      image: fileUrl,
+    });
+    try {
+      // Uploading to ipfs
+      const added = await client.add(data);
+      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      createSale(url);
+    } catch (err) {
+      console.log("Error uploading file: ", err.message);
+    }
+  }
+
+  // Test code
   return (
     <>
       <Header />
@@ -205,7 +264,14 @@ export default function PostForm() {
                 <Spacer />
                 <Spacer />
                 <Center>
-                  <Button onClick={saveAsset} colorScheme="blue" type="submit">
+                  <Button
+                    onClick={() => {
+                      saveAsset();
+                      createMarket();
+                    }}
+                    colorScheme="blue"
+                    type="submit"
+                  >
                     Submit
                   </Button>
                 </Center>
