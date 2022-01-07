@@ -16,6 +16,7 @@ export default function Post() {
         <Center>
           <Text pt="4">Stream Highlight</Text>
         </Center>
+        <ReactPlayer />
 
         {/*} <Video controls="over" fit="cover">
           <source

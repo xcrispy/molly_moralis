@@ -77,7 +77,15 @@
   flex-wrap: wrap;
   max-width: 800px;
 }
+div.scrollable {
+  margin: 4px, 4px;
+  padding: 4px;
 
+  width: 400px;
+  overflow-x: auto;
+  overflow-y: auto;
+  white-space: nowrap;
+}
 .card {
   margin: 1rem;
   padding: 1.5rem;

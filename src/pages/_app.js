@@ -1,11 +1,11 @@
-import '../styles/globals.css'
-import { grommet, Grommet } from 'grommet';
-import 'degen/styles'
-import { ChakraProvider } from '@chakra-ui/react'
-import {MoralisProvider} from "react-moralis"
-function MyApp({ Component, pageProps }){ 
+import "../styles/globals.css";
+import { grommet, Grommet } from "grommet";
+import "degen/styles";
+import { ChakraProvider } from "@chakra-ui/react";
+import { MoralisProvider } from "react-moralis";
+function MyApp({ Component, pageProps }) {
   return (
-    <MoralisProvider 
+    <MoralisProvider
       appId={process.env.NEXT_PUBLIC_MORALIS_APP_ID}
       serverUrl={process.env.NEXT_PUBLIC_MORALIS_SERVER_ID}
     >
@@ -14,8 +14,8 @@ function MyApp({ Component, pageProps }){
           <Component {...pageProps} />
         </ChakraProvider>
       </Grommet>
-
     </MoralisProvider>
-  )}
+  );
+}
 
-export default MyApp
+export default MyApp;

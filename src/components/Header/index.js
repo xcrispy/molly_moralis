@@ -36,16 +36,38 @@ export default function Header() {
             </Text>
             <Spacer />
             <HStack>
-              <Link href="/">Explore</Link>
-              <Link href="/PostForm">Mint</Link>
-              <Link href="/Profile">Profile</Link>
+              <Link href="/">
+                <DropButton label="Explore"></DropButton>
+              </Link>
+              <Link href="/PostForm">
+                <DropButton label="Mint"></DropButton>
+              </Link>
+              <Link href="/Profile">
+                <DropButton label="Profile"></DropButton>
+              </Link>
             </HStack>
             <Spacer />
             <HStack p="4">
               {/* <h2>Welcome {user.get("username")}</h2> */}
               {/* <h1>Logged in as:</h1> */}
               <Badge colorScheme="green">
-                {truncateAddress(user.get("ethAddress"))}
+                <DropButton
+                  label={<span>{truncateAddress(user.get("ethAddress"))}</span>}
+                  dropAlign={{ top: "bottom", right: "right" }}
+                  dropContent={
+                    <>
+                      <br />
+                      <span>Address copying mechanism</span>
+                      <Button
+                        p="4"
+                        mt="2"
+                        onClick={() => {
+                          navigator.clipboard.writeText(user.get("ethAddress"));
+                        }}
+                      ></Button>
+                    </>
+                  }
+                />
               </Badge>
               <Button colorScheme="blue" onClick={logout}>
                 {" "}
@@ -69,7 +91,8 @@ export default function Header() {
                 <>
                   <Button
                     p="4"
-                    mt="4"
+                    mt="2"
+                    rounded={false}
                     colorScheme="blue"
                     onClick={() => {
                       authenticate({ provider: "metamask" });
@@ -79,7 +102,8 @@ export default function Header() {
                   </Button>
                   <Button
                     p="4"
-                    mt="4"
+                    mt="2"
+                    rounded={false}
                     colorScheme="blue"
                     onClick={() => {
                       authenticate({ provider: "walletconnect", chainId: 137 });
