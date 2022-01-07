@@ -45,21 +45,24 @@ export default function Profile() {
 
   const ShowFile = () => {
     console.log(fileUrl);
-
-    return (
-      <img
-        alt=""
-        className="rounded mt-4"
-        style={{ height: "320px", width: "350px" }}
-        src={fileUrl}
-      />
-    );
+    if (fileUrl !== null) {
+      return (
+        <img
+          alt=""
+          className="rounded mt-4"
+          style={{ height: "320px", width: "350px" }}
+          src={fileUrl}
+        />
+      );
+    }
   };
   const setMode = () => setshowFile(true);
   const [showFile, setshowFile] = useState(false);
+
   return (
     <>
       <Header />
+      <br />
       <Heading className={styles.head}>Profile</Heading>
       <main className={styles.main}>
         {showFile && isAuthenticated ? <ShowFile /> : null}

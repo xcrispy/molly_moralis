@@ -6,6 +6,7 @@ import { Center, Text, VStack, HStack, Flex, Spacer } from "@chakra-ui/react";
 //import { Value } from "grommet-controls";
 
 export default function Post() {
+  // States and variables
   const [like, setLike] = useState(5);
   const Like = () => {
     console.log("you liked a video");
