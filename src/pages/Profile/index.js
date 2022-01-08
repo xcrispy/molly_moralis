@@ -12,12 +12,15 @@ import { Box } from "@chakra-ui/react";
 import { DropButton } from "grommet";
 import PostForm from "../PostForm";
 import { useState } from "react";
+import ReactPlayer from "react-player";
 import { ethers } from "ethers";
 import { useMoralisFile, useMoralis } from "react-moralis";
 import { Input } from "degen";
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
 export default function Profile() {
+  const [size, setSize] = useState(0);
+  var lol = 1124908;
   const [fileUrl, setFileUrl] = useState(null);
   const [value, setValue] = React.useState(0);
   var file;
@@ -26,8 +29,12 @@ export default function Profile() {
     setshowFile(false);
     try {
       const added = await client.add(file, {
-        progress: (prog) => console.log(`received: ${prog}`),
+        progress: (prog) => {
+          setSize(prog);
+          console.log(`received: ${prog}`);
+        },
       });
+
       const url = `https://ipfs.infura.io/ipfs/${added.path}`;
       setFileUrl(url);
     } catch (error) {
@@ -44,19 +51,37 @@ export default function Profile() {
   } = useMoralis();
 
   const ShowFile = () => {
-    console.log(fileUrl);
     if (fileUrl !== null) {
-      return (
-        <img
-          alt=""
-          className="rounded mt-4"
-          style={{ height: "320px", width: "350px" }}
-          src={fileUrl}
-        />
-      );
+      console.log(fileUrl);
+      if (size <= lol) {
+        return (
+          <img
+            alt=""
+            className="rounded mt-4"
+            style={{ height: "320px", width: "350px" }}
+            src={fileUrl}
+          />
+        );
+      } else {
+        return (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <ReactPlayer playing={true} url={fileUrl} />
+          </div>
+        );
+      }
     }
   };
-  const setMode = () => setshowFile(true);
+  const setMode = () => {
+    console.log(size);
+    if (fileUrl !== null) {
+      setshowFile(true);
+    }
+  };
   const [showFile, setshowFile] = useState(false);
 
   return (
