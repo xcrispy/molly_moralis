@@ -46,6 +46,11 @@ export default function PostForm() {
       const jsonfile = new Moralis.File("file.json", {
         base64: btoa(JSON.stringify(highlight)),
       });
+      //save video w Moralis Object
+      // const highlightFile = new Moralis.Object("HighlightVideo")
+      // highlightFile.set("title", highlight.title);
+      // highlightFile.set("video", vidfile)
+      // highlightFile.save();
 
       const savedFile = await jsonfile.saveIPFS();
       console.log("i saved this file first", savedFile);
@@ -80,6 +85,8 @@ export default function PostForm() {
       title: "",
       description: "",
       file: [],
+      editions: "",
+      price: "",
     },
     validationSchema: Yup.object({
       title: Yup.string()
