@@ -221,6 +221,7 @@ export default function PostForm() {
                     <div style={{ border: "3px solid #6bf1a7" }} className=" ">
                       <ReactPlayer playing={true} controls url={fileUrl} />
                     </div>
+                    {console.log(fileUrl)}
                   </>
                 ) : (
                   console.log("not not null")

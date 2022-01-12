@@ -13,6 +13,7 @@
     "@emotion/styled": "^11",
     "@material-ui/core": "^4.12.3",
     "@walletconnect/web3-provider": "^1.6.6",
+    "axios": "^0.24.0",
     "babel-plugin-styled-components": "^2.0.2",
     "degen": "^0.0.43",
     "dotenv": "^10.0.0",
