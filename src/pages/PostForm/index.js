@@ -47,10 +47,17 @@ export default function PostForm() {
         base64: btoa(JSON.stringify(highlight)),
       });
       //save video w Moralis Object
-      // const highlightFile = new Moralis.Object("HighlightVideo")
-      // highlightFile.set("title", highlight.title);
-      // highlightFile.set("video", vidfile)
-      // highlightFile.save();
+      
+      const highlightFile = new Moralis.Object("HighlightVideo")
+      console.log("created moralis object")
+      highlightFile.set("title", highlight.title);
+      highlightFile.set("video", vidfile)
+      const uploadedVid = await highlightFile.save();
+      console.log(uploadedVid);
+      console.log('uploaded video to cloud')
+      
+      
+      
 
       const savedFile = await jsonfile.saveIPFS();
       console.log("i saved this file first", savedFile);
@@ -114,7 +121,7 @@ export default function PostForm() {
           editions: values.editions,
           price: values.price,
         });
-
+        await saveAsset()
         //   console.log(values.title)
         //   console.log(values.description)
         //   console.log(values.file)
@@ -212,7 +219,7 @@ export default function PostForm() {
                 <Spacer />
                 <Spacer />
                 <Center>
-                  <Button onClick={saveAsset} colorScheme="blue" type="submit">
+                  <Button colorScheme="blue" type="submit">
                     Submit
                   </Button>
                 </Center>
